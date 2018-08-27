@@ -19,24 +19,24 @@ function usage() {
 }
 
 function install() {
-  bx wsk action create handler handler.js
+  ibmcloud fn action create handler handler.js
 
-  bx wsk trigger create every-20-seconds \
+  ibmcloud fn trigger create every-20-seconds \
     --feed  /whisk.system/alarms/alarm \
     --param cron '*/20 * * * * *' \
     --param maxTriggers 15
 
-  bx wsk rule create \
+  ibmcloud fn rule create \
     invoke-periodically \
     every-20-seconds \
     handler
 }
 
 function uninstall() {
-  bx wsk rule disable invoke-periodically
-  bx wsk rule delete invoke-periodically
-  bx wsk trigger delete every-20-seconds
-  bx wsk action delete handler
+  ibmcloud fn rule disable invoke-periodically
+  ibmcloud fn rule delete invoke-periodically
+  ibmcloud fn trigger delete every-20-seconds
+  ibmcloud fn action delete handler
 }
 
 case "$1" in
