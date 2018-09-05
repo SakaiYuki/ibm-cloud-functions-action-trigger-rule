@@ -24,7 +24,7 @@ function install() {
   ibmcloud fn trigger create every-20-seconds \
     --feed  /whisk.system/alarms/alarm \
     --param cron '*/20 * * * * *' \
-    --param maxTriggers 15
+    --param stopDate `date +%s%3N -d'5min'`
 
   ibmcloud fn rule create \
     invoke-periodically \

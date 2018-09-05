@@ -30,7 +30,7 @@ ibmcloud fn action invoke --blocking handler
 
 ## 트리거: `every-20-seconds`
 
-이 트리거는 내장 알람 패키지를 사용하며, 트리거 생성 시 `cron` 매개변수를 통해 넘겨받은 cron 문법으로 설정되어 매 20초 마다 이벤트를 발생 시킵니다. `maxTriggers` 매개 변수는 기본 값인 10,000회 호출 대신 5분(15회)동안 발생하도록 제한합니다.
+이 트리거는 내장 알람 패키지를 사용하며, 트리거 생성 시 `cron` 매개변수를 통해 넘겨받은 cron 문법으로 설정되어 매 20초 마다 이벤트를 발생 시킵니다. `stopDate` 매개 변수는 기본 값인 10,000회 호출 대신 5분 동안 발생하도록 제한합니다.
 
 다음 명령으로 트리거를 생성합니다:
 
@@ -38,7 +38,7 @@ ibmcloud fn action invoke --blocking handler
 ibmcloud fn trigger create every-20-seconds \
   --feed  /whisk.system/alarms/alarm \
   --param cron '*/20 * * * * *' \
-  --param maxTriggers 15
+  --param stopDate `date +%s%3N -d'5min'`
 ```
 
 ## 룰: `invoke-periodically`

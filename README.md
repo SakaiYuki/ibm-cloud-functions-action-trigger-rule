@@ -30,7 +30,7 @@ ibmcloud fn action invoke --blocking handler
 
 ## Trigger: `every-20-seconds`
 
-This trigger uses the built-in alarm package feed to fire events every 20 seconds. This is specified through cron syntax in the `cron` parameter. The `maxTriggers` parameter ensures that it only fires for five minutes (15 times), rather than indefinitely.
+This trigger uses the built-in alarm package feed to fire events every 20 seconds. This is specified through cron syntax in the `cron` parameter. The `stopDate` parameter ensures that it only fires for five minutes, rather than indefinitely.
 
 Create it with the following command:
 
@@ -38,7 +38,7 @@ Create it with the following command:
 ibmcloud fn trigger create every-20-seconds \
   --feed  /whisk.system/alarms/alarm \
   --param cron '*/20 * * * * *' \
-  --param maxTriggers 15
+  --param stopDate `date +%s%3N -d'5min'`
 ```
 
 ## Rule: `invoke-periodically`
